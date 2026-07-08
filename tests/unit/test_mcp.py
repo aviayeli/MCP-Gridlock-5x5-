@@ -132,8 +132,18 @@ class TestMatchStateSubmitMove:
         assert result2.move_count == 2  # Confirm move_count incremented
 
     def test_role_can_revise_pending_action_before_partner_arrives(self) -> None:
-        """A role can overwrite its pending action before the turn resolves."""
-        match = MatchState()
+        """A role can overwrite its pending action before the turn resolves.
+
+        Uses max_barriers=0 (rather than the default MatchState()) so the
+        Cop's RIGHT move is deterministically legal — with random barrier
+        placement enabled, a barrier could occasionally land on (0, 1) and
+        make this assertion flaky.
+        """
+        config = GameConfig(
+            rows=5, cols=5, max_moves=25, num_games=1, max_barriers=0,
+            scoring=Scoring(cop_win=20, thief_win=10, cop_loss=5, thief_loss=5),
+        )
+        match = MatchState(GameLoop(config=config))
         result1 = match.submit_move(Role.COP, Action.DOWN)
         assert result1 is None
 
