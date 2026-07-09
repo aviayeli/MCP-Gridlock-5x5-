@@ -1,0 +1,64 @@
+{
+  "num_games": 6,
+  "games": [
+    {
+      "game_index": 0,
+      "cop_team": "ALPHA",
+      "thief_team": "BETA",
+      "moves": 25,
+      "cop_reward": 5,
+      "thief_reward": 10,
+      "outcome": "TIMEOUT"
+    },
+    {
+      "game_index": 1,
+      "cop_team": "BETA",
+      "thief_team": "ALPHA",
+      "moves": 25,
+      "cop_reward": 5,
+      "thief_reward": 10,
+      "outcome": "TIMEOUT"
+    },
+    {
+      "game_index": 2,
+      "cop_team": "ALPHA",
+      "thief_team": "BETA",
+      "moves": 25,
+      "cop_reward": 5,
+      "thief_reward": 10,
+      "outcome": "TIMEOUT"
+    },
+    {
+      "game_index": 3,
+      "cop_team": "BETA",
+      "thief_team": "ALPHA",
+      "moves": 25,
+      "cop_reward": 5,
+      "thief_reward": 10,
+      "outcome": "TIMEOUT"
+    },
+    {
+      "game_index": 4,
+      "cop_team": "ALPHA",
+      "thief_team": "BETA",
+      "moves": 25,
+      "cop_reward": 5,
+      "thief_reward": 10,
+      "outcome": "TIMEOUT"
+    },
+    {
+      "game_index": 5,
+      "cop_team": "BETA",
+      "thief_team": "ALPHA",
+      "moves": 25,
+      "cop_reward": 5,
+      "thief_reward": 10,
+      "outcome": "TIMEOUT"
+    }
+  ],
+  "final_scores": {
+    "ALPHA": 45,
+    "BETA": 45
+  },
+  "winner": "tie"
+}
