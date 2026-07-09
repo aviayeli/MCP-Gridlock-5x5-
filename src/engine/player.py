@@ -64,6 +64,7 @@ class Player:
     """A single agent's role and current position on the board."""
 
     def __init__(self, role: Role, start: Coordinate) -> None:
+        """Initialize role and starting position."""
         self.role = role
         self.position = start
 

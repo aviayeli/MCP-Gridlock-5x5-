@@ -131,8 +131,8 @@ class QLearningAgent:
     def save(self, path: Path | str) -> None:
         """Persist `self.q_table` as JSON to `path`; see `q_persistence` for format.
 
-        Caller convention (not enforced here): `data/q_table_cop.json` /
-        `data/q_table_thief.json`, one per role.
+        Caller convention (not enforced here): `data/q_table_team_alpha.json` /
+        `data/q_table_team_beta.json`, one per team.
         """
         save_q_table(path, self.q_table)
 

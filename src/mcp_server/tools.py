@@ -42,6 +42,7 @@ class GameTools:
     """
 
     def __init__(self, match: MatchState) -> None:
+        """Wrap a MatchState instance for tool-interface access."""
         self._match = match
 
     def get_observation(self, role: Role) -> dict:

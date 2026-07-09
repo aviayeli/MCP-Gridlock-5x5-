@@ -3,10 +3,11 @@ between two policy-driven teams, alternating which team plays Cop vs Thief
 each game and tracking cumulative per-team score.
 
 This module deliberately knows nothing about *how* a policy decides a move
-(Q-table, LLM call, fixed heuristic) — see the `Policy` contract below —
-so a future phase can wire in real LLM-driven agents without touching
-anything here. Report assembly is split out to tournament_report.py purely
-to respect this package's 150-line-per-file cap.
+(Q-table, LLM call, fixed heuristic) — see the `Policy` contract in
+tournament_policy.py — so a future phase can wire in real LLM-driven agents
+without touching anything here. Report assembly and the role-swap schedule
+are split out to tournament_report.py and tournament_schedule.py purely to
+respect this package's 150-line-per-file cap.
 """
 
 from __future__ import annotations
@@ -17,40 +18,10 @@ from collections.abc import Callable
 from engine.board import Coordinate
 from engine.config_loader import GameConfig, load_config
 from engine.game_loop import GameLoop
-from engine.observation import Observation, build_observation
-from engine.player import Action
+from engine.observation import build_observation
+from engine.tournament_policy import Policy
 from engine.tournament_report import GameRecord, Team, build_game_record, build_report
-
-Policy = Callable[[Observation], Action]
-"""Interface contract for a pluggable per-team strategy.
-
-A policy is any callable that takes the single `Observation` its role
-currently sees (own position, opponent position or `UNSEEN` if out of the
-fog-of-war radius, the static barrier layout, and the current move count)
-and returns the `Action` to submit for this turn. Policies are role- and
-team-agnostic at the type level — the same callable shape plays Cop in one
-game and Thief in the next under the role-swap schedule below, exactly
-because `Observation` is already relative to whichever role holds it. This
-is the *only* seam `Tournament` exposes to its caller: a test can inject a
-trivial deterministic policy (e.g. always `Action.STAY`, or "step toward
-the last-seen opponent"), and a later phase can inject a real LLM- or
-Q-table-driven policy, without either side changing anything in this file.
-"""
-
-def _cop_team_for_game(game_index: int) -> Team:
-    """Return which Team plays Cop in game `game_index` (0-based).
-
-    Team Alpha plays Cop on even-indexed games (0, 2, 4, ...) and Thief on
-    odd-indexed games; Team Beta always takes the opposite role. Swapping
-    every single game (rather than e.g. splitting the series into a first
-    -half/second-half block) spreads any transient, game-index-correlated
-    factor (such as an under-trained Q-table early in the series) evenly
-    across both teams instead of concentrating it on whichever team holds
-    a given role during the early games. For `num_games=6` (the current
-    config), this gives each team exactly 3 Cop games and 3 Thief games,
-    so neither team retains a permanent positional advantage.
-    """
-    return Team.ALPHA if game_index % 2 == 0 else Team.BETA
+from engine.tournament_schedule import _cop_team_for_game
 
 
 class Tournament:

@@ -31,6 +31,7 @@ class MatchState:
     """
 
     def __init__(self, game_loop: GameLoop | None = None) -> None:
+        """Set up the match state with a pending-action buffer."""
         self._game = game_loop if game_loop is not None else GameLoop()
         self._pending: dict[Role, Action] = {}
         self._last_result: TurnResult | None = None

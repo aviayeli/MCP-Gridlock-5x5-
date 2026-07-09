@@ -34,8 +34,8 @@ if TYPE_CHECKING:
     from agents.state_encoding import RelativeOpponent, StateKey
 
 # Intended caller convention (not hardcoded/enforced here -- see q_agent.py
-# and this module's docstring): callers persist one table per role at
-# `data/q_table_cop.json` and `data/q_table_thief.json`.
+# and this module's docstring): callers persist one table per team at
+# `data/q_table_team_alpha.json` and `data/q_table_team_beta.json`.
 
 
 def _encode_state_key(state_key: StateKey) -> str:

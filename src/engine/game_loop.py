@@ -47,6 +47,7 @@ class GameLoop:
         cop_start: Coordinate = (0, 0),
         thief_start: Coordinate = (4, 4),
     ) -> None:
+        """Set up the board and both players for one episode."""
         self.config = config or load_config()
         self.board = Board(
             self.config.rows,
