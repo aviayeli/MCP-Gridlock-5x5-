@@ -69,6 +69,7 @@ class Tournament:
         config: GameConfig | None = None,
         cop_start: Coordinate = (0, 0),
         thief_start: Coordinate = (4, 4),
+        on_game_end: Callable[[int, GameRecord], None] | None = None,
     ) -> None:
         """`policies` must supply exactly one entry per `Team` member.
 
@@ -76,6 +77,16 @@ class Tournament:
         used so the mapping stays legible at call sites and so a future
         team roster change (should one ever happen) would not shift
         argument order silently.
+
+        `on_game_end`, if given, is called once per finished game as
+        `on_game_end(game_index, record)`, right after that game's record
+        is appended in `play()`. This is the one hook `Policy` itself
+        cannot provide (a stateless `Observation -> Action` callable has no
+        channel back to "here's the reward" or "the episode just ended") —
+        it lets a caller do per-episode bookkeeping (e.g. decaying an
+        epsilon-greedy agent, or a sparse terminal-reward Q-update) without
+        `Tournament` knowing anything about learning. Defaults to `None` so
+        existing callers are unaffected.
         """
         if set(policies) != set(Team):
             raise ValueError("policies must provide exactly one entry per Team")
@@ -83,6 +94,7 @@ class Tournament:
         self.policies = policies
         self.cop_start = cop_start
         self.thief_start = thief_start
+        self.on_game_end = on_game_end
         self.team_scores: dict[Team, int] = dict.fromkeys(Team, 0)
         self.records: list[GameRecord] = []
 
@@ -96,7 +108,10 @@ class Tournament:
         rather than have it silently reset state on a second call.
         """
         for game_index in range(self.config.num_games):
-            self.records.append(self._play_game(game_index))
+            record = self._play_game(game_index)
+            self.records.append(record)
+            if self.on_game_end is not None:
+                self.on_game_end(game_index, record)
 
     def _play_game(self, game_index: int) -> GameRecord:
         """Drive one full episode to completion via the injected policies."""
