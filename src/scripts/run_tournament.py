@@ -66,6 +66,7 @@ def _make_on_game_end(
     """
 
     def on_game_end(_game_index: int, record: GameRecord) -> None:
+        """Invoke each team agent's terminal Q-update and epsilon decay."""
         for team_agent in team_agents.values():
             team_agent.learn_from(record)
 

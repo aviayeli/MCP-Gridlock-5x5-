@@ -37,7 +37,6 @@ the last-seen opponent"), and a later phase can inject a real LLM- or
 Q-table-driven policy, without either side changing anything in this file.
 """
 
-
 def _cop_team_for_game(game_index: int) -> Team:
     """Return which Team plays Cop in game `game_index` (0-based).
 

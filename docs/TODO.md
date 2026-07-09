@@ -3,7 +3,7 @@
 Roadmap for building the Dual AI Agent Race via MCP experiment, per
 `docs/PRD.md` and `docs/PLAN.md`. Organized into 5 phases.
 
-**Status: All 5 phases complete** (228 unit + integration tests, 99% code coverage, 4 items descoped)
+**Status: All 5 core phases complete.** Note: Local-LLM/Ollama and ngrok remote exposure were deliberately bypassed in favor of a centralized MCP architecture. (228 unit + integration tests, 99% code coverage)
 
 ## Phase 1: Setup
 
