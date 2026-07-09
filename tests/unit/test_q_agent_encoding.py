@@ -38,7 +38,6 @@ class TestStateEncodingDeterminism:
             "move_count": 5,
         }
         assert encode_observation(obs1) == encode_observation(obs2)
-
     def test_visible_vs_unseen_opponent_different_keys(self) -> None:
         """Visible vs unseen opponent produce different, distinguishable keys."""
         obs_visible = {
@@ -58,7 +57,6 @@ class TestStateEncodingDeterminism:
         assert key_visible != key_unseen
         # Unseen key's first element must be exactly None
         assert key_unseen[0] is None
-
     def test_unseen_key_first_element_is_none(self) -> None:
         """Unseen opponent key's first element is exactly None (not a tuple)."""
         obs = {
@@ -70,7 +68,6 @@ class TestStateEncodingDeterminism:
         key = encode_observation(obs)
         assert key[0] is None
         assert isinstance(key[1], int)  # Second element is barrier mask
-
     def test_same_relative_delta_at_different_positions_same_key(self) -> None:
         """Same relative delta at different positions encode identically."""
         # Both have opponent one cell down from self
@@ -87,7 +84,6 @@ class TestStateEncodingDeterminism:
             "move_count": 0,
         }
         assert encode_observation(obs1) == encode_observation(obs2)
-
     def test_different_relative_deltas_different_keys(self) -> None:
         """Different relative opponent deltas produce different keys."""
         obs_down = {
@@ -103,7 +99,6 @@ class TestStateEncodingDeterminism:
             "move_count": 0,
         }
         assert encode_observation(obs_down) != encode_observation(obs_right)
-
     def test_barrier_adjacency_up_vs_down(self) -> None:
         """Barrier immediately UP vs. immediately DOWN produce different mask values."""
         obs_up = {
@@ -122,7 +117,6 @@ class TestStateEncodingDeterminism:
         key_down = encode_observation(obs_down)
         assert key_up != key_down
         assert key_up[1] != key_down[1]  # Different barrier masks
-
     def test_barrier_adjacency_left_vs_right(self) -> None:
         """LEFT vs RIGHT barrier produce different mask values."""
         obs_left = {
@@ -141,7 +135,6 @@ class TestStateEncodingDeterminism:
         key_right = encode_observation(obs_right)
         assert key_left != key_right
         assert key_left[1] != key_right[1]  # Different barrier masks
-
     def test_non_adjacent_barrier_ignored(self) -> None:
         """Barrier 2+ cells away does not affect the mask (locality test)."""
         obs_no_barrier = {
@@ -157,7 +150,6 @@ class TestStateEncodingDeterminism:
             "move_count": 0,
         }
         assert encode_observation(obs_no_barrier) == encode_observation(obs_far_barrier)
-
     def test_move_count_excluded_from_key(self) -> None:
         """Different move_count values do not change the state key."""
         obs1 = {
@@ -173,7 +165,6 @@ class TestStateEncodingDeterminism:
             "move_count": 10,
         }
         assert encode_observation(obs1) == encode_observation(obs2)
-
     def test_multiple_adjacent_barriers_mask(self) -> None:
         """Multiple adjacent barriers compose correctly into mask bits."""
         obs_up_and_left = {
