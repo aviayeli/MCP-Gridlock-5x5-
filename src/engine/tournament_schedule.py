@@ -13,7 +13,7 @@ from __future__ import annotations
 from engine.tournament_report import Team
 
 
-def _cop_team_for_game(game_index: int) -> Team:
+def cop_team_for_game(game_index: int) -> Team:
     """Return which Team plays Cop in game `game_index` (0-based).
 
     Team Alpha plays Cop on even-indexed games (0, 2, 4, ...) and Thief on

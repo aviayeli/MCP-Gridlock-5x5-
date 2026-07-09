@@ -21,7 +21,7 @@ from engine.game_loop import GameLoop
 from engine.observation import build_observation
 from engine.tournament_policy import Policy
 from engine.tournament_report import GameRecord, Team, build_game_record, build_report
-from engine.tournament_schedule import _cop_team_for_game
+from engine.tournament_schedule import cop_team_for_game
 
 
 class Tournament:
@@ -85,7 +85,7 @@ class Tournament:
 
     def _play_game(self, game_index: int) -> GameRecord:
         """Drive one full episode to completion via the injected policies."""
-        cop_team = _cop_team_for_game(game_index)
+        cop_team = cop_team_for_game(game_index)
         thief_team = Team.BETA if cop_team is Team.ALPHA else Team.ALPHA
         loop = GameLoop(self.config, self.cop_start, self.thief_start)
 

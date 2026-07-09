@@ -8,7 +8,7 @@ construction, report/Q-table persistence) `run_tournament.py` owns.
 
 WHY one `QLearningAgent` per TEAM, not per role
 -------------------------------------------------
-`Tournament._cop_team_for_game` swaps which *team* plays Cop every game —
+`tournament_schedule.cop_team_for_game` swaps which *team* plays Cop every game —
 Team Alpha is Cop on even-indexed games and Thief on odd-indexed games, and
 vice versa for Team Beta (see `tournament.py`). A `Policy` is invoked with
 whatever role's `Observation` its team currently holds, with no role tag in
