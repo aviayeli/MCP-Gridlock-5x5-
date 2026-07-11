@@ -1,0 +1,21 @@
+{
+  "group_name": "Team-Alpha",
+  "students": ["Avi Ayeli"],
+  "github_repo": "https://github.com/aviayeli/MCP-Gridlock-5x5-",
+  "cop_mcp_url": null,
+  "thief_mcp_url": null,
+  "timezone": "Asia/Jerusalem",
+  "note": "No external MCP endpoint was deployed for this project (local stdio MCP server only, per docs/TODO.md); sub_games/totals below are self-play results (Team Alpha vs Team Beta) from the committed results/tournament_report.json, not a match against an external opponent.",
+  "sub_games": [
+    {"game_index": 0, "cop_team": "ALPHA", "thief_team": "BETA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"},
+    {"game_index": 1, "cop_team": "BETA", "thief_team": "ALPHA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"},
+    {"game_index": 2, "cop_team": "ALPHA", "thief_team": "BETA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"},
+    {"game_index": 3, "cop_team": "BETA", "thief_team": "ALPHA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"},
+    {"game_index": 4, "cop_team": "ALPHA", "thief_team": "BETA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"},
+    {"game_index": 5, "cop_team": "BETA", "thief_team": "ALPHA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"}
+  ],
+  "totals": {
+    "cop": 30,
+    "thief": 60
+  }
+}
