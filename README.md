@@ -64,7 +64,10 @@ Strict OOP, single-responsibility modules, each ≤150 lines:
 - `config_loader.py` — loads `config/game_config.json` into a typed, immutable `GameConfig`.
 - `observation.py` — builds each agent's fog-of-war `Observation` from the live board/player state.
 - `game_loop.py` — `GameLoop`: turn resolution, terminal-condition checks, reward assignment for a single episode.
-- `tournament.py` / `tournament_report.py` — `Tournament`: plays a full `num_games`-game series, alternates which team plays which role every game, accumulates per-team scores, and assembles the final JSON report.
+- `tournament.py` — `Tournament`: plays a full `num_games`-game series, accumulates per-team scores, and drives each episode via `GameLoop`.
+- `tournament_policy.py` — the `Policy` type contract: the pluggable `Observation -> Action` callable signature a team's strategy (Q-agent, fixed heuristic, etc.) must implement.
+- `tournament_schedule.py` — `cop_team_for_game()`: the role-swap schedule deciding which team plays Cop vs. Thief each game.
+- `tournament_report.py` — `Team`, `Outcome`, `GameRecord`, and `build_report()`: the JSON report schema and assembly logic.
 
 ### 3.2 MCP server (`src/mcp_server/`)
 A stdio [`FastMCP`](https://github.com/modelcontextprotocol) server (`server.py`) exposing three tools to any connecting MCP client: `get_observation(role)`, `make_move(role, direction)`, `get_match_status()`. Because the Cop and Thief are two *independent* MCP clients that each call `make_move` on their own schedule — without ever seeing the other's move first, which is the whole point of the Dec-POMDP framing — `match_state.py`'s `MatchState` class buffers whichever action arrives first and only resolves the turn (calling `GameLoop.step()`) once both roles have submitted. This makes the server itself, not either agent, the synchronization point for simultaneous turns.
