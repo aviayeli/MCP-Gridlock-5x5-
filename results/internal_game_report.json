@@ -5,7 +5,7 @@
   "cop_mcp_url": null,
   "thief_mcp_url": null,
   "timezone": "Asia/Jerusalem",
-  "note": "No external MCP endpoint was deployed for this project (local stdio MCP server only, per docs/TODO.md); sub_games/totals below are self-play results (Team Alpha vs Team Beta) from the committed results/tournament_report.json, not a match against an external opponent.",
+  "note": "No external MCP endpoints were deployed for this project. The internal tournament was run locally via direct execution (src/scripts/run_tournament.py driving Tournament against GameLoop), without routing through the live MCP network transport, as documented in README.md §3.4. sub_games/totals below are the real, committed results from results/tournament_report.json (Team Alpha vs Team Beta self-play, 6 games, role-swap schedule) — not a match against an external opponent.",
   "sub_games": [
     {"game_index": 0, "cop_team": "ALPHA", "thief_team": "BETA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"},
     {"game_index": 1, "cop_team": "BETA", "thief_team": "ALPHA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"},
@@ -15,7 +15,8 @@
     {"game_index": 5, "cop_team": "BETA", "thief_team": "ALPHA", "moves": 25, "cop_reward": 5, "thief_reward": 10, "outcome": "TIMEOUT"}
   ],
   "totals": {
-    "cop": 30,
-    "thief": 60
-  }
+    "team_alpha": 45,
+    "team_beta": 45
+  },
+  "winner": "tie"
 }
